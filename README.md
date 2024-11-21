@@ -1,6 +1,6 @@
 Project Overview:
 
-MovieApp is a backend project developed as a full-stack JavaScript application for managing movie information. This application provides users with details about movies, including genres and directors, and allows them to manage their favorite movies by adding or removing them from their profiles.
+Movie Bee App is a backend project developed as a full-stack JavaScript application for managing movie information. This application provides users with details about movies, including genres and directors, and allows them to manage their favorite movies by adding or removing them from their profiles.
 
 Project Objectives:
 - Create a database of movies, including information on titles, genres, and directors.
