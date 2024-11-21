@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+
+<head>
+    <style> 
+        th {
+            font-weight: bold;
+            text-align: left;
+            border: 1px solid saddlebrown;
+            padding:10px;
+
+        }
+
+        td {
+            padding: 20px;
+            background-color: blanchedalmond;
+        }
+    
+        pre{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Application API</title>
+</head>
+
+<body style="font-family: Verdana, Geneva, Tahoma, sans-serif;">
+    <h3> Movie API Documentation Page</h3>
+    <h5> Following are the the URL endpoints and the corresponding request methods associated with the key features of the Movie Application.</h5>
+<table>
+        <tr> 
+            <th> Request </th>
+            <th> URL </th>
+            <th> HTTP Method </th>
+            <th> Query Parameters</th>
+            <th> Request Body Data Format</th>
+            <th> Response Body Data Format</th>
+        </tr>
+        <tr> 
+            <td> Get a list of movies </td>
+            <td> /allMovies </td>
+            <td> GET </td>
+            <td> None </td>
+            <td> None </td>
+            <td>A JSON object holding data about all the movies 
+                <pre> 
+                Sample Output:
+                {
+                    "MovieGenre": "672fcbb2f5e79a1702515957",
+                    "MovieDirector": "67302690f5e79a170251595c",
+                    "_id": "67302eb3f5e79a1702515965",
+                    "MovieTitle": "The Godfather",
+                    "MovieDescription": "The story of The Godfather is about 
+                    the Corleone family's attempt to regain their power in the
+                     New York crime scene. The family's patriarch, 
+                     Vito Corleone (Marlon Brando), is a lifelong criminal 
+                     who is portrayed as sympathetic and admirable. The story 
+                     focuses on the transformation of Vito's youngest son, 
+                     Michael Corleone (Al Pacino), from a reluctant outsider 
+                     to a ruthless mafia boss.",
+                    "ImagePath": "godfather.png",
+                    "Featured": true
+                }
+            </pre>
+            </td>
+         </tr>
+
+         <tr> 
+            <td> Get a single movie data by movie title</td>
+            <td> /allMovies/:movieTitle </td>
+            <td> GET </td>
+            <td> MovieTitle </td>
+            <td> None </td>
+            <td>A JSON object holding data about a single movies 
+                <pre> 
+                Output:
+                {
+                    "MovieGenre": "672fcbacf5e79a1702515955",
+                    "MovieDirector": "6730269cf5e79a170251595f",
+                    "_id": "67302ebff5e79a1702515968",
+                    "MovieTitle": "Jaws",
+                    "MovieDescription": "When a massive killer shark 
+                    unleashes chaos on a beach community off Long Island, 
+                    it's up to a local sheriff, a marine biologist, and an old 
+                    seafarer to hunt the beast down.",
+                    "ImagePath": "jaws.png",
+                    "Featured": true
+                }
+            </pre>
+            </td>
+         </tr>
+         
+         <tr> 
+            <td> Get movie genres by Name</td>
+            <td> /genres/:genreName </td>
+            <td> GET </td>
+            <td> MovieGenre </td>
+            <td> None </td>
+            <td>A JSON object holding data about a movie genres
+                <pre> 
+                    {
+                        "_id": "672fcbb6f5e79a1702515959",
+                        "GenreName": "Horror",
+                        "GenreDescription": "Films that seek to elicit fear or disgust in the audience 
+                        
+                        for entertainment purposes."
+                    }
+            </pre>
+            </td>
+         </tr>
+
+         <tr> 
+            <td> Get movie director data by title</td>
+            <td> /directors/:directorName </td>
+            <td> GET </td>
+            <td> MovieDirector </td>
+            <td> None </td>
+            <td>A JSON object holding data about a movie director
+                <pre> 
+                Output:
+                {
+                    "_id": "673026a7f5e79a1702515962",
+                    "DirectorName": "James Cameron",
+                    "MiniBio": "James Francis Cameron was born in Kapuskasing, Ontario, Canada. 
+                    He moved to the United States in 1971. The son of an engineer, he majored in physics at 
+                    California State University before switching to English, and eventually dropping out. 
+                    He then drove a truck to support his screenwriting ambition. He landed his first professional 
+                    film job as art director, miniature-set builder, and process-projection supervisor 
+                    on Roger Corman's Battle Beyond the Stars (1980) and had his first experience as a director 
+                    with a two week stint on Piranha II: The Spawning (1982) before being fired.",
+                    "BirthYear": "1954-01-01T00:00:00.000Z"
+                }
+            </pre>
+            </td>
+         </tr>
+
+         <tr> 
+            <td> Register a new user </td>
+            <td> /users </td>
+            <td> POST </td>
+            <td> UserName </td>
+            <td>    {
+                "UserName": "SampleUserName",
+                "UserPassword": "SampleUserName",
+                "UserEmail": "updated.username@gmail.com",
+                "UserFavoriteMovies": [
+                    "67302eb3f5e79a1702515965",
+                    "67302ec5f5e79a170251596a",
+                    "67302ecdf5e79a170251596d"
+                ],
+                "UserLocation": "Chicago"
+            }
+        </td>
+        <td>A JSON object holding data of added User
+            <pre> 
+            Output:
+                    {
+                        "UserName": "SampleUserName",
+                        "UserPassword": "SampleUserName",
+                        "UserEmail": "updated.username@gmail.com",
+                        "UserFavoriteMovies": [],
+                        "_id": "6732d6f156941e28831f0fa3",
+                        "__v": 0
+                    }
+            </pre>
+            </td>
+         </tr>
+
+         <tr> 
+            <td> Get all users </td>
+            <td> /users </td>
+            <td> GET </td>
+            <td> UserName </td>
+            <td> None </td>
+            <td>A JSON object holding data a user data 
+                <pre> 
+                Sample Output:
+                {
+                    "_id": "67303d2cf5e79a170251596f",
+                    "UserName": "John Cambell",
+                    "UserPassword": "John@123",
+                    "UserEmail": "John.Cambell@gmail.com",
+                    "UserBirthday": "1998-02-01T00:00:00.000Z",
+                    "UserFavoriteMovies": [
+                        "67302eb3f5e79a1702515965",
+                        "67302ec5f5e79a170251596a",
+                        "67302ecdf5e79a170251596d"
+                    ],
+                    "UserLocation": "Chicago"
+                },
+            </pre>
+            </td>
+         </tr>
+
+         <tr> 
+            <td> Get a user details </td>
+            <td> /users/:UserName </td>
+            <td> GET </td>
+            <td> UserName </td>
+            <td> None </td>
+            <td>A JSON object holding data a user data 
+                <pre> 
+                Output:
+                {
+                    "_id": "6732d6f156941e28831f0fa3",
+                    "UserName": "SampleUserName",
+                    "UserPassword": "SampleUserName",
+                    "UserEmail": "updated.username@gmail.com",
+                    "UserFavoriteMovies": [],
+                    "__v": 0
+                }
+            </pre>
+            </td>
+         </tr>
+
+
+         <tr> 
+            <td> Update user information </td>
+            <td> /users/:UserName </td>
+            <td> PUT </td>
+            <td> userName </td>
+            <td>A JSON object holding updated user data (userName)
+                <pre> 
+                {
+                    "_id": "6732d6f156941e28831f0fa3",
+                    "UserName": "UpdatedJohn",
+                    "UserPassword": "UpdatedJohn@123",
+                    "UserEmail": "updated.John@123@gmail.com",
+                    "UserFavoriteMovies": [],
+                    "__v": 0
+                }
+            </pre>
+            </td>
+            <td> Success or Failure Message </td>
+         </tr>
+
+         <tr> 
+            <td> Add a movie to user favorite list </td>
+            <td> /users/:UserName/allMovies/:MovieID </td>
+            <td> POST </td>
+            <td> userName and movieTitle </td>
+            <td>A JSON object holding a movie title
+                <pre> 
+                {
+                    username: 'John',
+                    password: 'John@123',
+                    email: 'John.Camell@gmail.com',
+                    dateOfBirth: '07/08/1990',
+                    favoriteMovies: ['Jurassic Park']
+                }
+            </pre>
+            </td>
+            <td>A JSON object holding user updated favorite movies list
+                <pre> 
+                    {
+                        "_id": "6732dd6356941e28831f0fb3",
+                        "UserName": "UpdatedUserName",
+                        "UserPassword": "UpdatedUserName",
+                        "UserEmail": "updated.username@gmail.com",
+                        "UserFavoriteMovies": [
+                            "67302eb3f5e79a1702515965"
+                        ],
+                        "__v": 0
+                    }
+            </pre>
+            </td>
+         </tr>
+
+         <tr> 
+            <td> Delete a movie to user favorite list </td>
+            <td> /users/:UserName/allMovies/:MovieID </td>
+            <td> DELETE </td>
+            <td> userName and movieTitle </td>
+            <td> None </td>
+            <td> 
+                <pre>
+                    Output:
+                    {
+                        "_id": "6732dd6356941e28831f0fb3",
+                        "UserName": "UpdatedUserName",
+                        "UserPassword": "UpdatedUserName",
+                        "UserEmail": "updated.username@gmail.com",
+                        "UserFavoriteMovies": [],
+                        "__v": 0
+                    }
+                </pre>
+            </td>
+         </tr>
+
+         <tr> 
+            <td> Deregistering a user  </td>
+            <td> /users/:UserName </td>
+            <td> DELETE </td>
+            <td> userName </td>
+            <td> None </td>
+            <td> Confirmation Messag ( "Sample User was deleted.") or Error Message </td>
+         </tr>
+</table>
+</body>
+</html>
