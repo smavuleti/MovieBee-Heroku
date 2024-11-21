@@ -34,7 +34,7 @@ mongoose.connect(process.env.CONNECTION_URI, {
 
 
 app.get('/', (req, res) => {
-    res.send("Welcome to Movie Application");
+    res.send("Welcome to Movie Bee Application");
 });
 
 
