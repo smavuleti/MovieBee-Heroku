@@ -29,14 +29,15 @@ let movieSchema = mongoose.Schema({
 });
 
 let userSchema = mongoose.Schema({
-  UserName: { type: String, required: true },
+  Username: { type: String, required: true },
   UserPassword: { type: String, required: true },
   UserEmail: { type: String },
   UserBirthday: Date,
-  UserFavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movie" }],
+  UserFavoriteMovies: [{ type: mongoose.Schema.Types.ObjectId, ref: "Movies" }],
 });
 
 userSchema.statics.hashPassword = (password) => {
+  console.log("Model js, password::: ", password)
   return bcrypt.hashSync(password, 10);
 };
 

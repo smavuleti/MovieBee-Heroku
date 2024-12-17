@@ -138,10 +138,10 @@
             <td> Register a new user </td>
             <td> /users </td>
             <td> POST </td>
-            <td> UserName </td>
+            <td> Username </td>
             <td>    {
-                "UserName": "SampleUserName",
-                "UserPassword": "SampleUserName",
+                "Username": "SampleUsername",
+                "UserPassword": "SampleUsername",
                 "UserEmail": "updated.username@gmail.com",
                 "UserFavoriteMovies": [
                     "67302eb3f5e79a1702515965",
@@ -155,8 +155,8 @@
             <pre> 
             Output:
                     {
-                        "UserName": "SampleUserName",
-                        "UserPassword": "SampleUserName",
+                        "Username": "SampleUsername",
+                        "UserPassword": "SampleUsername",
                         "UserEmail": "updated.username@gmail.com",
                         "UserFavoriteMovies": [],
                         "_id": "6732d6f156941e28831f0fa3",
@@ -170,14 +170,14 @@
             <td> Get all users </td>
             <td> /users </td>
             <td> GET </td>
-            <td> UserName </td>
+            <td> Username </td>
             <td> None </td>
             <td>A JSON object holding data a user data 
                 <pre> 
                 Sample Output:
                 {
                     "_id": "67303d2cf5e79a170251596f",
-                    "UserName": "John Cambell",
+                    "Username": "John Cambell",
                     "UserPassword": "John@123",
                     "UserEmail": "John.Cambell@gmail.com",
                     "UserBirthday": "1998-02-01T00:00:00.000Z",
@@ -194,17 +194,17 @@
 
          <tr> 
             <td> Get a user details </td>
-            <td> /users/:UserName </td>
+            <td> /users/:Username </td>
             <td> GET </td>
-            <td> UserName </td>
+            <td> Username </td>
             <td> None </td>
             <td>A JSON object holding data a user data 
                 <pre> 
                 Output:
                 {
                     "_id": "6732d6f156941e28831f0fa3",
-                    "UserName": "SampleUserName",
-                    "UserPassword": "SampleUserName",
+                    "Username": "SampleUsername",
+                    "UserPassword": "SampleUsername",
                     "UserEmail": "updated.username@gmail.com",
                     "UserFavoriteMovies": [],
                     "__v": 0
@@ -216,14 +216,14 @@
 
          <tr> 
             <td> Update user information </td>
-            <td> /users/:UserName </td>
+            <td> /users/:Username </td>
             <td> PUT </td>
-            <td> userName </td>
-            <td>A JSON object holding updated user data (userName)
+            <td> username </td>
+            <td>A JSON object holding updated user data (username)
                 <pre> 
                 {
                     "_id": "6732d6f156941e28831f0fa3",
-                    "UserName": "UpdatedJohn",
+                    "Username": "UpdatedJohn",
                     "UserPassword": "UpdatedJohn@123",
                     "UserEmail": "updated.John@123@gmail.com",
                     "UserFavoriteMovies": [],
@@ -236,9 +236,9 @@
 
          <tr> 
             <td> Add a movie to user favorite list </td>
-            <td> /users/:UserName/allMovies/:MovieID </td>
+            <td> /users/:Username/allMovies/:MovieID </td>
             <td> POST </td>
-            <td> userName and movieTitle </td>
+            <td> username and movieTitle </td>
             <td>A JSON object holding a movie title
                 <pre> 
                 {
@@ -254,8 +254,8 @@
                 <pre> 
                     {
                         "_id": "6732dd6356941e28831f0fb3",
-                        "UserName": "UpdatedUserName",
-                        "UserPassword": "UpdatedUserName",
+                        "Username": "UpdatedUsername",
+                        "UserPassword": "UpdatedUsername",
                         "UserEmail": "updated.username@gmail.com",
                         "UserFavoriteMovies": [
                             "67302eb3f5e79a1702515965"
@@ -268,17 +268,17 @@
 
          <tr> 
             <td> Delete a movie to user favorite list </td>
-            <td> /users/:UserName/allMovies/:MovieID </td>
+            <td> /users/:Username/allMovies/:MovieID </td>
             <td> DELETE </td>
-            <td> userName and movieTitle </td>
+            <td> username and movieTitle </td>
             <td> None </td>
             <td> 
                 <pre>
                     Output:
                     {
                         "_id": "6732dd6356941e28831f0fb3",
-                        "UserName": "UpdatedUserName",
-                        "UserPassword": "UpdatedUserName",
+                        "Username": "UpdatedUsername",
+                        "UserPassword": "UpdatedUsername",
                         "UserEmail": "updated.username@gmail.com",
                         "UserFavoriteMovies": [],
                         "__v": 0
@@ -289,9 +289,9 @@
 
          <tr> 
             <td> Deregistering a user  </td>
-            <td> /users/:UserName </td>
+            <td> /users/:Username </td>
             <td> DELETE </td>
-            <td> userName </td>
+            <td> username </td>
             <td> None </td>
             <td> Confirmation Messag ( "Sample User was deleted.") or Error Message </td>
          </tr>
