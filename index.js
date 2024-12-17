@@ -25,7 +25,7 @@ let auth = require("./auth")(app);
 
 //mongodb connection
 mongoose
-  .connect('mongodb+srv://smavuleti:crS94rDp6YWatEil@moviebeecluster.wyhju.mongodb.net/movieBee?retryWrites=true&w=majority&appName=movieBeeCluster', {
+  .connect(process.env.CONNECTION_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
