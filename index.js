@@ -25,7 +25,7 @@ let auth = require("./auth")(app);
 
 //mongodb connection
 mongoose
-  .connect(process.env.CONNECTION_URI, {
+  .connect('mongodb+srv://smavuleti:crS94rDp6YWatEil@moviebeecluster.wyhju.mongodb.net/movieBee?retryWrites=true&w=majority&appName=movieBeeCluster', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -107,6 +107,7 @@ app.post(
     //check the validation object for errors
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
+      console.log("Error in server::", errors);
       return res.status(422).json({ errors: errors.array() });
     }
     let hashedPassword = Users.hashPassword(req.body.UserPassword);
