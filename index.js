@@ -5,7 +5,6 @@ const app = express();
 const mongoose = require("mongoose");
 const Models = require("./model.js");
 
-
 const Movies = Models.Movie;
 const Users = Models.User;
 const Genres = Models.Genre;
@@ -25,10 +24,13 @@ let auth = require("./auth")(app);
 
 //mongodb connection
 mongoose
-  .connect('mongodb+srv://smavuleti:crS94rDp6YWatEil@moviebeecluster.wyhju.mongodb.net/movieBee?retryWrites=true&w=majority&appName=movieBeeCluster', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(
+    "mongodb+srv://smavuleti:crS94rDp6YWatEil@moviebeecluster.wyhju.mongodb.net/movieBee?retryWrites=true&w=majority&appName=movieBeeCluster",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
+  )
   .then(() => console.log("Connected to MongoDB Atlas"))
   .catch((err) => console.log("Error connecting to MongoDB: ", err));
 
@@ -61,8 +63,6 @@ app.get("/allMovies/:movieTitle", (req, res) => {
       console.error(err);
       res.status(500).send("Error:" + err);
     });
-  //res.json(allMovies.find((movie) => { return movie.movieTitle === req.params.movieTitle }));
-  // console.log("Success in getting a single movie from the list, that is: " + req.params.movieTitle);
 });
 
 //Return data about a genre by name
@@ -107,12 +107,11 @@ app.post(
     //check the validation object for errors
     let errors = validationResult(req);
     if (!errors.isEmpty()) {
-      console.log("Error in server::", errors);
       return res.status(422).json({ errors: errors.array() });
     }
     let hashedPassword = Users.hashPassword(req.body.UserPassword);
     await Users.findOne({ Username: req.body.Username })
-    //Search to see if a user with the resquested username already exists
+      //Search to see if a user with the resquested username already exists
       .then((user) => {
         console.log("Found user ", user);
         if (user) {
@@ -144,7 +143,7 @@ app.post(
 // Get a list of users
 app.get("/users", async (req, res) => {
   await Users.find()
-    .then((users)  => {
+    .then((users) => {
       res.status(201).json(users);
     })
     .catch((err) => {

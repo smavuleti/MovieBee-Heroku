@@ -37,12 +37,11 @@ let userSchema = mongoose.Schema({
 });
 
 userSchema.statics.hashPassword = (password) => {
-  console.log("Model js, password::: ", password)
   return bcrypt.hashSync(password, 10);
 };
 
 userSchema.methods.validatePassword = function (password) {
-  return bcrypt.compareSync(password, this.password);
+  return bcrypt.compareSync(password, this.UserPassword);
 };
 
 //Creating Models
