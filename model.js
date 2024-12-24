@@ -16,14 +16,8 @@ let directorSchema = mongoose.Schema({
 let movieSchema = mongoose.Schema({
   MovieTitle: { type: String, required: true },
   MovieDescription: { type: String, required: true },
-  MovieGenre: {
-    GenreName: String,
-    GenreDescription: String,
-  },
-  MovieDirector: {
-    DirectorName: String,
-    MiniBio: String,
-  },
+  MovieGenre: {type: mongoose.Schema.Types.ObjectId, ref: 'Genres'  },
+  MovieDirector: {type: mongoose.Schema.Types.ObjectId, ref: 'Directors' },
   ImagePath: String,
   Featured: Boolean,
 });
@@ -45,13 +39,13 @@ userSchema.methods.validatePassword = function (password) {
 };
 
 //Creating Models
-let Movie = mongoose.model("Movie", movieSchema);
+let Movies = mongoose.model("Movie", movieSchema);
 let User = mongoose.model("User", userSchema);
-let Genre = mongoose.model("Genre", genreSchema);
-let Director = mongoose.model("Director", directorSchema);
+let Genres = mongoose.model("Genres", genreSchema);
+let Directors = mongoose.model("Directors", directorSchema);
 
 //Exporting Models
-module.exports.Movie = Movie;
+module.exports.Movies = Movies;
 module.exports.User = User;
-module.exports.Genre = Genre;
-module.exports.Director = Director;
+module.exports.Genres = Genres;
+module.exports.Directors = Directors;

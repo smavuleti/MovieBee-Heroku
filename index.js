@@ -5,10 +5,10 @@ const app = express();
 const mongoose = require("mongoose");
 const Models = require("./model.js");
 
-const Movies = Models.Movie;
+const Movies = Models.Movies;
 const Users = Models.User;
-const Genres = Models.Genre;
-const Directors = Models.Director;
+const Genres = Models.Genres;
+const Directors = Models.Directors;
 
 app.use(bodyParser.json());
 app.use(express.json());
@@ -38,13 +38,16 @@ app.get("/", (req, res) => {
   res.send("Welcome to Movie Bee Application");
 });
 
+
+
 app.get(
   "/allMovies",
-  passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     await Movies.find()
+    .populate('MovieGenre', ["GenreName"])
+    .populate('MovieDirector', ["DirectorName"])
       .then((movies) => {
-        res.status(201).json(movies);
+        res.status(200).json(movies);
       })
       .catch((error) => {
         console.error(error);
@@ -52,7 +55,6 @@ app.get(
       });
   }
 );
-
 //Return data about a single movie by title to the user
 app.get("/allMovies/:movieTitle", (req, res) => {
   Movies.findOne({ MovieTitle: req.params.movieTitle })
@@ -129,7 +131,7 @@ app.post(
             })
             .catch((error) => {
               console.error(error);
-              res.status(500).send("Erroryyyy: " + error);
+              res.status(500).send("Error: " + error);
             });
         }
       })
