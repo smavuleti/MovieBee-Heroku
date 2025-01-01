@@ -11,7 +11,7 @@ const Genres = Models.Genres;
 const Directors = Models.Directors;
 
 app.use(bodyParser.json());
-app.use(express.json());
+app.use(express.json()); // Middleware for parsing JSON
 app.use(morgan("common"));
 app.use(express.static("public"));
 const passport = require("passport");
@@ -38,23 +38,18 @@ app.get("/", (req, res) => {
   res.send("Welcome to Movie Bee Application");
 });
 
-
-
-app.get(
-  "/allMovies",
-  async (req, res) => {
-    await Movies.find()
-    .populate('MovieGenre', ["GenreName"])
-    .populate('MovieDirector', ["DirectorName"])
-      .then((movies) => {
-        res.status(200).json(movies);
-      })
-      .catch((error) => {
-        console.error(error);
-        res.status(500).send("Error: " + error);
-      });
-  }
-);
+app.get("/allMovies", async (req, res) => {
+  await Movies.find()
+    .populate("MovieGenre", ["GenreName"])
+    .populate("MovieDirector", ["DirectorName"])
+    .then((movies) => {
+      res.status(200).json(movies);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Error: " + error);
+    });
+});
 //Return data about a single movie by title to the user
 app.get("/allMovies/:movieTitle", (req, res) => {
   Movies.findOne({ MovieTitle: req.params.movieTitle })
@@ -127,6 +122,7 @@ app.post(
             UserBirthday: req.body.UserBirthday,
           })
             .then((user) => {
+              console.log("User from API: ", user);
               res.status(201).json(user);
             })
             .catch((error) => {
@@ -190,42 +186,65 @@ app.put("/users/:Username", (req, res) => {
   //    res.send('Successful PUT request updating username');
 });
 
-//Adding a movie to list of favorites for user
-app.post("/users/:Username/allMovies/:MovieID", (req, res) => {
-  Users.findOneAndUpdate(
-    { Username: req.params.Username },
-    {
-      $push: { UserFavoriteMovies: req.params.MovieID },
-    },
-    { new: true }
-  )
-    .then((updatedUser) => {
-      res.json(updatedUser);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error:" + err);
-    });
-  // res.send('Successful POST request adding user favorite movie');
+// POST: Add movie to user's favorites by MovieId
+app.post("/users/:Username/favorites", async (req, res) => {
+  const { Username } = req.params;
+  const { _id } = req.body; // Movie _id from the request body
+
+  try {
+    // Find the movie by _id in the Movie collection
+    const movie = await Movies.findOne({ _id: _id });
+    if (!movie) {
+      console.log(_id);
+      return res.status(404).send("Movie not found.");
+    }
+
+    // Add the movie's _id to the User's UserFavoriteMovies array
+    // Find the user by username and update
+    const user = await Users.findOneAndUpdate(
+      { Username: Username },
+      { $addToSet: { UserFavoriteMovies: _id } }, // $addToSet avoids duplicates
+      { new: true }
+    );
+    if (!user) {
+      return res.status(404).send("User not found.");
+    }
+    res.json(user);
+  } catch (error) {
+    console.error("Error adding movie to favorites:", error);
+    res.status(500).send("Error adding movie to favorites");
+  }
 });
 
 //Removes a movie from the list of favorites
-app.delete("/users/:Username/allMovies/:MovieID", (req, res) => {
-  Users.findOneAndUpdate(
-    { Username: req.params.Username },
-    {
-      $pull: { UserFavoriteMovies: req.params.MovieID },
-    },
-    { new: true }
-  )
-    .then((updatedUser) => {
-      res.json(updatedUser);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error:" + err);
-    });
-  // res.send('Successful POST request adding user favorite movie');
+// DELETE: Remove movie from user's favorites by MovieId
+app.delete("/users/:Username/favorites", async (req, res) => {
+  const { Username } = req.params;
+  const { _id } = req.body; // Movie _id from the request body
+
+  try {
+    // Find the movie by _id in the Movie collection
+    const movie = await Movies.findOne({ _id: _id });
+    if (!movie) {
+      console.log(_id);
+      return res.status(404).send("Movie not found.");
+    }
+
+    // Remove the movie's _id from the User's UserFavoriteMovies array
+    const user = await Users.findOneAndUpdate(
+      { Username: Username },
+      { $pull: { UserFavoriteMovies: _id } }, // $pull removes the movie's _id from the array
+      { new: true }
+    );
+    if (!user) {
+      return res.status(404).send("User not found.");
+    }
+
+    res.json(user); // Return the updated user data
+  } catch (error) {
+    console.error("Error removing movie from favorites:", error);
+    res.status(500).send("Error removing movie from favorites");
+  }
 });
 
 // Deregister user
