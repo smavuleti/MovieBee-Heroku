@@ -63,7 +63,7 @@ app.get("/allMovies/:movieTitle", (req, res) => {
 });
 
 //Return data about a genre by name
-app.get("/genres/:genreName", (req, res) => {
+app.get("/allMovies/:genreName", (req, res) => {
   Genres.findOne({ GenreName: req.params.genreName })
     .then((genre) => {
       res.json(genre);
@@ -76,7 +76,7 @@ app.get("/genres/:genreName", (req, res) => {
 });
 
 //Return data about a director by director name
-app.get("/directors/:directorName", (req, res) => {
+app.get("/allMovies/:directorName", (req, res) => {
   Directors.findOne({ DirectorName: req.params.directorName })
     .then((director) => {
       res.json(director);
@@ -266,5 +266,5 @@ app.delete("/users/:Username", (req, res) => {
 
 const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0", () => {
-  console.log("Listening on Port" + port);
+  console.log("Server running on Port" +port);
 });
