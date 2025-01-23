@@ -18,7 +18,7 @@ const passport = require("passport");
 require("./passport");
 
 const cors = require("cors");
-let allowedOrigins = ['https://smavuleti-moviebee-479d2e8d7a6f.herokuapp.com/allMovies','http://localhost:1234/'];
+let allowedOrigins = ['https://smavuleti-moviebee-479d2e8d7a6f.herokuapp.com', 'http://localhost:1234'];
 
 //app.use(cors());
 app.use(cors({
