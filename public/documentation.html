@@ -42,7 +42,7 @@
             <td> GET </td>
             <td> None </td>
             <td> None </td>
-            <td>A JSON object holding data about all the movies 
+            <td>A JSON object - {Object[]} holding list of movies with details  
                 <pre> 
                 Sample Output:
                 {
@@ -69,9 +69,9 @@
             <td> Get a single movie data by movie title</td>
             <td> /allMovies/:movieTitle </td>
             <td> GET </td>
-            <td> MovieTitle </td>
+            <td> {string} movieTitle - Title of the movie </td>
             <td> None </td>
-            <td>A JSON object holding data about a single movies 
+            <td>A JSON object- {Object} holding data about a single movie details 
                 <pre> 
                 Output:
                 {
@@ -92,11 +92,11 @@
          
          <tr> 
             <td> Get movie genres by Name</td>
-            <td> /genres/:genreName </td>
+            <td> /allMovies/:genreName </td>
             <td> GET </td>
-            <td> MovieGenre </td>
+            <td> {string} genreName </td>
             <td> None </td>
-            <td>A JSON object holding data about a movie genres
+            <td>A JSON object {Object} holding data about a movie genre details
                 <pre> 
                     {
                         "_id": "672fcbb6f5e79a1702515959",
@@ -113,9 +113,9 @@
             <td> Get movie director data by title</td>
             <td> /directors/:directorName </td>
             <td> GET </td>
-            <td> MovieDirector </td>
+            <td> {string} directorName </td>
             <td> None </td>
-            <td>A JSON object holding data about a movie director
+            <td>A JSON {Object} holding data about a movie director details
                 <pre> 
                 Output:
                 {
@@ -138,20 +138,13 @@
             <td> Register a new user </td>
             <td> /users </td>
             <td> POST </td>
-            <td> Username </td>
-            <td>    {
-                "Username": "SampleUsername",
-                "UserPassword": "SampleUsername",
-                "UserEmail": "updated.username@gmail.com",
-                "UserFavoriteMovies": [
-                    "67302eb3f5e79a1702515965",
-                    "67302ec5f5e79a170251596a",
-                    "67302ecdf5e79a170251596d"
-                ],
-                "UserLocation": "Chicago"
-            }
-        </td>
-        <td>A JSON object holding data of added User
+            <td> {Object} reqBody - User details; <br>
+                {string} reqBody.Username - User's username;<br>
+                {string} reqBody.UserPassword - User's password;<br>
+                {string} reqBody.UserEmail - User's email;<br>
+                {Date} [reqBody.UserBirthday] - User's birthday<br>
+              </td>
+        <td>A JSON {Object} holding newly created user details
             <pre> 
             Output:
                     {
@@ -170,9 +163,9 @@
             <td> Get all users </td>
             <td> /users </td>
             <td> GET </td>
-            <td> Username </td>
             <td> None </td>
-            <td>A JSON object holding data a user data 
+            <td> None </td>
+            <td>An Array holding data a user data 
                 <pre> 
                 Sample Output:
                 {
@@ -185,8 +178,17 @@
                         "67302eb3f5e79a1702515965",
                         "67302ec5f5e79a170251596a",
                         "67302ecdf5e79a170251596d"
-                    ],
-                    "UserLocation": "Chicago"
+                    ]
+                },{
+                    "_id": "67303d2cf5e79a1702515523",
+                    "Username": "Sara",
+                    "UserPassword": "Sara@123",
+                    "UserEmail": "Sara.M@gmail.com",
+                    "UserBirthday": "1990-16-01T00:00:00.000Z",
+                    "UserFavoriteMovies": [
+                        "67302eb3f5e79a1702515965",
+                        "67302ec5f5e79a170251596a"
+                    ]
                 },
             </pre>
             </td>
@@ -196,9 +198,9 @@
             <td> Get a user details </td>
             <td> /users/:Username </td>
             <td> GET </td>
-            <td> Username </td>
+            <td> {string} Username </td>
             <td> None </td>
-            <td>A JSON object holding data a user data 
+            <td>A JSON {Object} holding data a user data 
                 <pre> 
                 Output:
                 {
@@ -218,8 +220,13 @@
             <td> Update user information </td>
             <td> /users/:Username </td>
             <td> PUT </td>
-            <td> username </td>
-            <td>A JSON object holding updated user data (username)
+            <td> {string} Username;
+                {string} [reqBody.Username];
+                {string} [reqBody.UserPassword];
+                {string} [reqBody.UserEmail];
+                {Date} [reqBody.UserBirthday]
+              </td>
+            <td>A JSON {Object} reqBody -  holding updated user details
                 <pre> 
                 {
                     "_id": "6732d6f156941e28831f0fa3",
@@ -236,10 +243,10 @@
 
          <tr> 
             <td> Add a movie to user favorite list </td>
-            <td> /users/:Username/allMovies/:MovieID </td>
+            <td> /users/:Username/favorites </td>
             <td> POST </td>
-            <td> username and movieTitle </td>
-            <td>A JSON object holding a movie title
+            <td> {string} Username;{Object} reqBody- Movie details; {string} reqBody._id ;  </td>
+            <td>A JSON {Object} holding user details with favorite movies
                 <pre> 
                 {
                     username: 'John',
@@ -268,10 +275,10 @@
 
          <tr> 
             <td> Delete a movie to user favorite list </td>
-            <td> /users/:Username/allMovies/:MovieID </td>
+            <td> /users/:Username/favorites </td>
             <td> DELETE </td>
-            <td> username and movieTitle </td>
-            <td> None </td>
+            <td> {string} Username;{Object} reqBody- Movie details; {string} reqBody._id ;   </td>
+            <td> A JSON {Object} Updated user details with favorite movies removed </td>
             <td> 
                 <pre>
                     Output:
@@ -291,9 +298,9 @@
             <td> Deregistering a user  </td>
             <td> /users/:Username </td>
             <td> DELETE </td>
-            <td> username </td>
+            <td> {string} Username </td>
             <td> None </td>
-            <td> Confirmation Messag ( "Sample User was deleted.") or Error Message </td>
+            <td> {string} Confirmation Message ( "Sample User was deleted.") or Error Message </td>
          </tr>
 </table>
 </body>
