@@ -33,7 +33,7 @@ require("./passport");
  * Configuring CORS policy to allow specific origins
  */
 const cors = require("cors");
-let allowedOrigins = ['https://smavuleti-moviebee-479d2e8d7a6f.herokuapp.com', 'http://localhost:1234','http://localhost:4200'];
+let allowedOrigins = ['https://smavuleti-moviebee-479d2e8d7a6f.herokuapp.com', 'https://moviebee.netlify.app','http://localhost:1234','http://localhost:4200'];
 
 //app.use(cors());
 app.use(cors({
